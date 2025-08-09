@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free Wi‑Fi Portal 💗</title>
+  <meta name="description" content="Totally real free Wi‑Fi. Definitely not a rickroll." />
+  <meta name="theme-color" content="#ff68b3" />
+  <style>
+    :root{
+      --hot:#ff4fa0;
+      --pink:#ff86c3;
+      --soft:#ffd3ea;
+      --ink:#201223;
+      --text:#fff7fb;
+    }
+    html,body{height:100%}
+    *{box-sizing:border-box}
+    body{
+      margin:0; color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(1200px 800px at 70% 15%, rgba(255,134,195,.25), transparent 60%),
+        linear-gradient(180deg, #2a0f29, #4a1744 60%, #2a0f29);
+      overflow:hidden;
+    }
+
+    /* floating hearts */
+    .hearts{position:fixed; inset:0; pointer-events:none; overflow:hidden; opacity:.35}
+    .hearts span{
+      position:absolute; width:26px; height:26px; background:var(--pink);
+      transform:rotate(45deg);
+      animation: float 12s linear infinite;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,.3));
+    }
+    .hearts span::before, .hearts span::after{
+      content:""; position:absolute; width:26px; height:26px; background:var(--pink); border-radius:50%;
+    }
+    .hearts span::before{left:-13px}
+    .hearts span::after{top:-13px}
+    @keyframes float{
+      0%{ transform:translateY(110vh) rotate(45deg) }
+      100%{ transform:translateY(-20vh) rotate(45deg) }
+    }
+
+    .wrap{min-height:100dvh; display:grid; place-items:center; padding:24px}
+    .card{
+      width:min(860px, 92vw); border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,134,195,.25), rgba(255,134,195,.12));
+      border:1.5px solid rgba(255,134,195,.55);
+      box-shadow:0 25px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.28);
+      padding:clamp(22px, 5vw, 48px); position:relative; overflow:hidden;
+    }
+    .flare{position:absolute; inset:-40% -10% auto auto; width:70%; height:70%;
+      background:radial-gradient(closest-side, rgba(255,134,195,.35), transparent 70%); filter:blur(22px)}
+    h1{margin:8px 0 6px; font-size: clamp(2.2rem, 6vw, 4.4rem); line-height:1.03}
+    .accent{color:var(--hot); text-shadow:0 0 24px rgba(255,134,195,.35)}
+    .sub{opacity:.9; color:#ffe6f4; font-size:clamp(1rem, 2.4vw, 1.2rem)}
+    .pill{
+      display:inline-flex; align-items:center; gap:.6ch;
+      background:rgba(255,134,195,.18); border:1px solid rgba(255,134,195,.55);
+      color:var(--soft); padding:8px 14px; border-radius:999px; font-weight:700
+    }
+    .row{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{cursor:pointer; user-select:none; border:none; border-radius:14px; padding:12px 18px; font-weight:800; letter-spacing:.02em}
+    .btn.primary{background:var(--hot); color:#1a0d18; box-shadow:0 10px 26px rgba(255,79,160,.45)}
+    .btn.ghost{background:transparent; color:var(--soft); border:1px solid rgba(255,134,195,.55)}
+
+    .progress{
+      --w:0%;
+      height:10px; border-radius:999px; margin-top:16px;
+      background:rgba(255,134,195,.22); border:1px solid rgba(255,134,195,.45); overflow:hidden
+    }
+    .bar{height:100%; width:var(--w); background:linear-gradient(90deg, var(--pink), var(--hot))}
+    .tiny{opacity:.85; font-size:.9rem; margin-top:8px; color:#ffeaf7}
+    .fallback{margin-top:18px}
+
+    @media (max-width:380px){
+      .pill{font-size:.95rem}
+    }
+  </style>
+</head>
+<body>
+  <!-- floating hearts (a few at random positions) -->
+  <div class="hearts" aria-hidden="true">
+    <span style="left:8%;  animation-delay:-1s; animation-duration:13s;"></span>
+    <span style="left:22%; animation-delay:-5s; animation-duration:11s;"></span>
+    <span style="left:38%; animation-delay:-3s; animation-duration:12s;"></span>
+    <span style="left:56%; animation-delay:-7s; animation-duration:10s;"></span>
+    <span style="left:72%; animation-delay:-2s; animation-duration:14s;"></span>
+    <span style="left:86%; animation-delay:-4s; animation-duration:12s;"></span>
+  </div>
+
+  <div class="wrap">
+    <main class="card" role="main" aria-labelledby="title">
+      <div class="flare" aria-hidden="true"></div>
+      <span class="pill">Free Wi‑Fi portal 💗</span>
+      <h1 id="title">Connect to <span class="accent">Free‑Love Wi‑Fi</span></h1>
+      <p class="sub" id="msg">Hang tight—negotiating with the network cherubs…</p>
+
+      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+        <div class="bar" id="bar"></div>
+      </div>
+      <div class="tiny" id="count">Redirecting in 3…</div>
+
+      <div class="row">
+        <button class="btn primary" id="connectBtn">Connect now</button>
+        <a class="btn ghost" id="manualLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">Open link</a>
+      </div>
+
+      <div class="fallback tiny">
+        If nothing happens, tap <a id="fallback" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener" style="color:var(--soft); text-decoration:underline;">here</a>.
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Rick link
+    const RICK = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+
+    // Allow ?delay= seconds override (e.g. .../index.html?delay=1)
+    const qs = new URLSearchParams(location.search);
+    const delay = Math.max(0, Number(qs.get("delay")||3));
+
+    const bar = document.getElementById("bar");
+    const msg = document.getElementById("msg");
+    const count = document.getElementById("count");
+    const connectBtn = document.getElementById("connectBtn");
+
+    let t = delay, pct = 0;
+    count.textContent = `Redirecting in ${t}…`;
+
+    const tick = setInterval(()=>{
+      t--; pct = Math.min(100, pct + 100/delay);
+      bar.style.setProperty("--w", pct + "%");
+      if (t > 0) {
+        count.textContent = `Redirecting in ${t}…`;
+      } else {
+        clearInterval(tick);
+        count.textContent = "Connecting…";
+        msg.textContent = "Love is in the air (and your Wi‑Fi)…";
+        location.href = RICK;
+      }
+    }, 1000);
+
+    connectBtn.addEventListener("click", ()=> location.href = RICK);
+  </script>
+</body>
+</html>
